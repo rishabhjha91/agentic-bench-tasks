@@ -1,0 +1,30 @@
+name: validate-tasks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  local:
+    name: oracle passes / shortcuts fail (no Docker)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest==8.3.3
+      - run: python scripts/run_local.py --repeats 3
+
+  docker:
+    name: verifier inside task image
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        task: [sqlite-migration-runner, rotating-log-follower, cron-next-fire-dst]
+    steps:
+      - uses: actions/checkout@v4
+      - name: oracle must pass
+        run: scripts/run_docker.sh ${{ matrix.task }} oracle
+      - name: baseline must fail
+        run: "! scripts/run_docker.sh ${{ matrix.task }} baseline"
