@@ -61,9 +61,22 @@ python scripts/run_local.py cron-next-fire-dst   # one task
 scripts/run_docker.sh sqlite-migration-runner oracle
 ```
 
+## Related work
+
+This repo is one part of a small toolkit for evaluating AI coding agents:
+
+| Repo | Role |
+|------|------|
+| [agentic-bench-tasks](https://github.com/rishabhjha91/agentic-bench-tasks) | original Terminal-Bench / Harbor-format tasks with hidden tests and shortcut baselines |
+| [bench-task-validator](https://github.com/rishabhjha91/bench-task-validator) | `taskcheck`: quality gates a task must pass before it enters a benchmark |
+| [agent-trajectory-auditor](https://github.com/rishabhjha91/agent-trajectory-auditor) | `trajaudit`: audits what an agent actually did while solving a task |
+
+Typical flow: author a task in **agentic-bench-tasks** → gate it with **taskcheck** → run agents →
+audit their trajectories with **trajaudit**.
+
 ## Author
 
-Rishabh Jha — AI evaluation & benchmark task engineer.
-[LinkedIn](https://www.linkedin.com/in/rishabh-jha-bbab5445/)
+**Rishabh Jha** — AI Evaluation & Benchmark Task Engineer (Terminal-Bench 4.0, SWE-bench-style tasks, LLM & agent evaluation)
+[LinkedIn](https://www.linkedin.com/in/rishabh-jha-bbab5445/) · [GitHub](https://github.com/rishabhjha91) · rishabhinfy91@gmail.com
 
 License: MIT. The tasks carry a canary GUID; please keep them out of training data.
